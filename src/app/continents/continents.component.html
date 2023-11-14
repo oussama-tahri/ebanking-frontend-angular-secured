@@ -1,0 +1,22 @@
+<div class="mt-2 border border-info p-2">
+  <ul class="nav nav-pills">
+    <li *ngFor="let c of continents$ | async">
+      <a [ngClass]="currentContinent==c?'btn-info':'btn-outline-info'" (click)="getCountries(c)" class="btn ms-2">{{c.continentName}}</a>
+    </li>
+  </ul>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th><th>Name</th><th>Currency Code</th><th>Currency Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let country of countries$ | async ; let i=index">
+      <td>{{i+1}}</td>
+      <td>{{country.countryName}}</td>
+      <td>{{country.currency.code}}</td>
+      <td>{{country.currency.salePrice}}/{{country.currency.purchasePrice}}</td>
+    </tr>
+  </tbody>
+</table>

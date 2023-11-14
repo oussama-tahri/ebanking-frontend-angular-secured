@@ -1,0 +1,15 @@
+<div class="container">
+  <table class="table">
+    <thead>
+     <tr>
+       <th>Currency</th><th>Balance</th>
+     </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of currencies">
+        <td>{{c.currencyId}}</td>
+        <td>{{c.balance|number : '.1-4'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

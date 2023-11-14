@@ -1,0 +1,65 @@
+<div class="container mt-2">
+  <div class="card">
+    <div class="card-header">Wallet Transactions</div>
+    <div class="card-header">
+      <div class="row small">
+        <div class="col">
+          <ul class="list-group">
+            <li class="list-group-item">Wallet ID : <strong>{{wallet.id}}</strong></li>
+            <li class="list-group-item">Balance : <strong>{{wallet.balance| number:".1-4"}}</strong></li>
+            <li class="list-group-item">Currency : <strong>{{wallet.currency!.code}}
+              (
+              Price : {{wallet.currency!.salePrice | number : '.1-4'}}/
+              {{wallet.currency!.purchasePrice | number : '.1-4'}}
+              )</strong></li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-header">Wallet Transfer</div>
+            <div class="card-body">
+              <form [formGroup]="walletTransferFormGroup" (ngSubmit)="newWalletTransfer()">
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text">Source Wallet Id : </label>
+                  <input class="form-control" formControlName="sourceWalletId" placeholder="sourceWalletId">
+                </div>
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text">Destination Wallet Id : </label>
+                  <input class="form-control" formControlName="destinationWalletId" placeholder="destinationWalletId">
+                </div>
+                <div class="input-group input-group-sm">
+                  <label class="input-group-text">Amount : </label>
+                  <input class="form-control" formControlName="amount" placeholder="Amount">
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-info gr">Transfer</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table small">
+        <thead>
+        <tr>
+          <th>ID</th> <th>Date</th><th>Type</th><th>Amount</th><th>Currency price</th><th>Target Wallet</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let tx of wallet.walletTransactions">
+          <td>{{tx.id}}</td>
+          <td>{{tx.timestamp | date:'dd/MM/yyyy'}}</td>
+          <td>{{tx.type}}</td>
+          <td>{{tx.amount| number:".1-4"}}</td>
+          <td>{{tx.currencyPrice| number:".1-4"}}</td>
+          <td>
+            <a routerLink="/transactions/{{tx.targetWallet.id}}">{{tx.targetWallet.id}}</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

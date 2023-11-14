@@ -1,0 +1,41 @@
+<div class="container mt-2">
+  <form [formGroup]="walletFormGroup" (ngSubmit)="handleAddNewWallet()">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th><th>ID</th> <th>Created At</th><th>Balance</th><th>Currency</th><th>Currency Price</th>
+      </tr>
+      <tr>
+        <th></th><th></th> <th></th>
+        <th>
+         <input type="text" formControlName="balance">
+         </th>
+        <th>
+          <select formControlName="currency">
+            <option *ngFor="let c of currencies$| async" [value]="c.code">{{c.code}}</option>
+          </select>
+        </th>
+        <th></th>
+        <th>
+          <button class="btn btn-info" type="submit">Add</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let wallet of wallets$ | async">
+       <td>
+         <button class="btn btn-outline-info" (click)="getWalletTransactions(wallet)">Transaction</button>
+       </td>
+       <td>{{wallet.id}}</td>
+       <td>{{wallet.createdAt | date:'dd/MM/yyyy'}}</td>
+       <td>{{wallet.balance|number:".1-4"}}</td>
+       <td>{{wallet.currency.code}}</td>
+       <td>
+         {{wallet.currency.salePrice| number:".1-4"}}/
+         {{wallet.currency.purchasePrice| number:".1-4"}}
+       </td>
+     </tr>
+    </tbody>
+  </table>
+  </form>
+</div>
